@@ -7,6 +7,14 @@
 
 using namespace omnetpp;
 
+class ArrivalQueue : public cSimpleModule
+{
+  protected:
+    virtual void initialize() override;
+    virtual void handleMessage() override;
+    virtual void refreshDisplay() override;
+};
+
 Define_Module(ArrivalQueue);
 
 void ArrivalQueue::initialize()

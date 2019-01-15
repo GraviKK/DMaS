@@ -8,6 +8,14 @@
 #include <omnetpp.h>
 #include <stdlib.h>
 
+using namespace omnetpp;
+
+class PrimaryControl : public cSimpleModule
+{
+  protected:
+    virtual void initialize() override;
+};
+
 Define_Module(PrimaryControl);
 
 void PrimaryControl::initialize()

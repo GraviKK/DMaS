@@ -8,6 +8,13 @@
 #include <omnetpp.h>
 #include <stdlib.h>
 
+using namespace omnetpp;
+
+class SecondaryControl : public cSimpleModule
+{
+  protected:
+    virtual void initialize() override;
+};
 
 Define_Module(SecondaryControl);
 

@@ -11,15 +11,24 @@
 
 using namespace omnetpp;
 
-Define_Module(ClientGenerator);
-    void ClientGenerator::initialize()
-    {
-        n = 4;
-    }
+class ClientGenerator : public cSimpleModule
+{
+  protected:
+    virtual void initialize() override;
+    virtual void handleMessage(cMessage *msg) override;
+};
 
-    void ClientGenerator::handleMessage(cMessage *msg)
-    {
-        cMessage *message = new cMessage("");
-        send(message, "out");
-    }
+
+Define_Module(ClientGenerator);
+
+void ClientGenerator::initialize()
+{
+
+}
+
+void ClientGenerator::handleMessage(cMessage *msg)
+{
+    cMessage *message = new cMessage("");
+    send(message, "out");
+}
 
