@@ -6,7 +6,8 @@
  */
 
 
-
+#include <omnetpp.h>
+#include <stdlib.h>
 
 Define_Module(Exit);
 

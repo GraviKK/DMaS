@@ -5,7 +5,8 @@
  *      Author: Karol Kostorz
  */
 
-
+#include <omnetpp.h>
+#include <stdlib.h>
 
 
 Define_Module(SecondaryControl);

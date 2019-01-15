@@ -7,7 +7,8 @@
 
 
 
-
+#include <omnetpp.h>
+#include <stdlib.h>
 Define_Module(Plane);
 
 void Plane::initialize()

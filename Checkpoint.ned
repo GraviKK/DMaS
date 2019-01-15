@@ -23,6 +23,8 @@ network checkpoint
         {
             gates:
                 output out;
+                output out2;
+                input in;
         }
 
         simple PrimaryControl
@@ -55,6 +57,13 @@ network checkpoint
                 input in;
         }
 
+        simple CustomerGenerator
+        {
+            gates:
+                input in;
+                output out;
+        }
+
     submodules:
         arrivalQueue: ArrivalQueue {
             @display("p=423,382");
@@ -71,11 +80,16 @@ network checkpoint
         exit: Exit {
             @display("p=710,183");
         }
+        customerGenerator: CustomerGenerator {
+            @display("p=637,382");
+        }
     connections:
         arrivalQueue.out --> primaryControll.in;
         primaryControll.outSecondary --> secondaryControll.in;
         primaryControll.outPlane --> plane.inPrimary;
         secondaryControll.out --> plane.inSecondary;
         secondaryControll.exit --> exit.in;
+        arrivalQueue.out2 --> {delay=0ms;} --> customerGenerator.in;
+        customerGenerator.out -->{delay=500;}--> arrivalQueue.in;
 }
 
