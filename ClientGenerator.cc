@@ -8,6 +8,7 @@
 
 #include <omnetpp.h>
 #include <stdlib.h>
+#include "passenger_m.h"
 
 using namespace omnetpp;
 
@@ -23,7 +24,7 @@ Define_Module(ClientGenerator);
 
 void ClientGenerator::initialize()
 {
-
+    Passenger * p = new Passenger("");
 }
 
 void ClientGenerator::handleMessage(cMessage *msg)
