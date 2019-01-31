@@ -7,15 +7,14 @@
 
 #include <omnetpp.h>
 #include <stdlib.h>
-#include "PassengerMessage_m.h"
-#include "QueueMessage_m.h"
+#include "AirportMessage_m.h"
+#include "PayloadType.h"
 
 using namespace omnetpp;
 
 class SecondaryControl : public cSimpleModule
 {
     private:
-      float delay;
       bool controlDone;
     protected:
       virtual void initialize() override;
@@ -26,23 +25,20 @@ Define_Module(SecondaryControl);
 
 void SecondaryControl::initialize()
 {
-    delay = 1.0;
     controlDone = false;
 }
 
 void SecondaryControl::handleMessage(cMessage *msg)
 {
-    PassengerMessage *rmsg = check_and_cast<PassengerMessage *>(msg);
+    AirportMessage *rmsg = check_and_cast<AirportMessage *>(msg);
 
     EV << "Passenger arrived at Secondary control.\n";
     if (controlDone)
     {
-        int prob = intuniform(0, 10);
-        if (prob > 9)
+        if (rmsg->par("secondaryFail"))
         {
-            rmsg->setIsDirty(true);
             EV << "Passenger send to Exit.\n";
-            send(rmsg,"outSecondary");
+            send(rmsg,"outExit");
         }
         else
         {
@@ -50,12 +46,13 @@ void SecondaryControl::handleMessage(cMessage *msg)
             EV << "Passenger send to Plane.\n";
         }
         controlDone = false;
-        QueueMessage *qmsg = new QueueMessage();;
+        AirportMessage *qmsg = new AirportMessage();
+        qmsg->setKind(PayloadType::QUEUE);
         send(qmsg,"outSignal");
     }
     else
     {
-        scheduleAt(simTime() + delay, rmsg);
+        scheduleAt(simTime() + rmsg->getDelay(), rmsg);
         controlDone = true;
     }
 

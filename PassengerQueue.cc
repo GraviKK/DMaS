@@ -7,8 +7,8 @@
 
 #include <omnetpp.h>
 #include <stdlib.h>
-#include "PassengerMessage_m.h"
-#include "QueueMessage_m.h"
+#include "AirportMessage_m.h"
+#include "PayloadType.h"
 
 
 using namespace omnetpp;
@@ -32,6 +32,29 @@ void PassengerQueue::initialize()
 
 void PassengerQueue::handleMessage(cMessage *msg)
 {
+    AirportMessage *rmsg = check_and_cast<AirportMessage *>(msg);
+
+    if (rmsg->getKind() == PayloadType::PASSENGER)
+    {
+        EV << "Message is passenger.\n";
+        if (canSend)
+        {
+            send(rmsg,"outPassenger");
+            canSend = false;
+        }
+        else
+        {
+            scheduleAt(simTime() + rmsg->getDelay(), rmsg);
+        }
+    }
+    else
+    {
+        EV << "Message is queue.\n";
+        canSend = true;
+        delete rmsg;
+
+    }
+    /*
     try
     {
         QueueMessage *rmsg = check_and_cast<QueueMessage *>(msg);
@@ -53,6 +76,7 @@ void PassengerQueue::handleMessage(cMessage *msg)
             scheduleAt(simTime() + 0.0, rmsg);
         }
     }
+    */
 
 }
 

@@ -16,10 +16,8 @@
 //
 // TODO generated message class
 //
-cplusplus {{ #include "Passenger.h" }}
 
 message AirportMessage 
 {
-    int id;
-    Passenger p;
+    double delay;
 }

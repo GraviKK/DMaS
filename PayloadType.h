@@ -12,20 +12,18 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
+#include <omnetpp.h>
+#include <stdlib.h>
 
-#include "Passenger.h"
+#ifndef PAYLOADTYPE_H_
+#define PAYLOADTYPE_H_
 
-Passenger::Passenger() {
-    delay  = 0;
-    isDirty = false;
-}
 
-Passenger::~Passenger() {
-    // TODO Auto-generated destructor stub
-}
 
-void Passenger::FillPasenger(double _delay, bool _isDirty) {
-    delay = _delay;
-    isDirty = _isDirty;
-}
+enum PayloadType
+    {
+        PASSENGER = 0,
+        QUEUE = 1
+    };
 
+#endif /* PASSENGER_H_ */

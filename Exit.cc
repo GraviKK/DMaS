@@ -8,7 +8,7 @@
 
 #include <omnetpp.h>
 #include <stdlib.h>
-#include "PassengerMessage_m.h"
+#include "AirportMessage_m.h"
 
 using namespace omnetpp;
 
@@ -30,7 +30,7 @@ void Exit::initialize()
 
 void Exit::handleMessage(cMessage  *msg)
 {
-    PassengerMessage *rmsg = check_and_cast<PassengerMessage *>(msg);
+    AirportMessage *rmsg = check_and_cast<AirportMessage *>(msg);
     EV << "Passenger at Exit.\n";
     passengerCount++;
     delete rmsg;
