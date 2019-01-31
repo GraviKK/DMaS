@@ -34,14 +34,20 @@ OBJS = \
     $O/ArrivalQueue.o \
     $O/ClientGenerator.o \
     $O/Exit.o \
+    $O/Passenger.o \
+    $O/PassengerQueue.o \
     $O/Plane.o \
     $O/PrimaryControl.o \
     $O/SecondaryControl.o \
-    $O/passenger_m.o
+    $O/AirportMessage_m.o \
+    $O/PassengerMessage_m.o \
+    $O/QueueMessage_m.o
 
 # Message files
 MSGFILES = \
-    passenger.msg
+    AirportMessage.msg \
+    PassengerMessage.msg \
+    QueueMessage.msg
 
 # SM files
 SMFILES =

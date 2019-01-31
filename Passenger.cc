@@ -13,11 +13,19 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-//
-// TODO generated message class
-//
-message Passenger 
-{
-    int someField;
-    bool isDirty = false;
+#include "Passenger.h"
+
+Passenger::Passenger() {
+    delay  = 0;
+    isDirty = false;
 }
+
+Passenger::~Passenger() {
+    // TODO Auto-generated destructor stub
+}
+
+void Passenger::FillPasenger(double _delay, bool _isDirty) {
+    delay = _delay;
+    isDirty = _isDirty;
+}
+

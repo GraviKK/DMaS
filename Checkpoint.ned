@@ -17,14 +17,14 @@
 //
 network checkpoint
 {
-    @display("bgb=974,507");
+    @display("bgb=974,507;bgl=2");
     types:
-        simple ArrivalQueue
+        simple PassengerQueue
         {
             gates:
-                output out;
-                output out2;
+                output outPassenger;
                 input in;
+                input inSignal;
         }
 
         simple PrimaryControl
@@ -33,14 +33,16 @@ network checkpoint
                 input in;
                 output outSecondary;
                 output outPlane;
+                output outSignal;
         }
 
         simple SecondaryControl
         {
             gates:
                 input in;
-                output out;
+                output outPlane;
                 output exit;
+                output outSignal;
         }
 
         simple Plane
@@ -57,22 +59,24 @@ network checkpoint
                 input in;
         }
 
-        simple CustomerGenerator
+        simple ClientGenerator
         {
             gates:
-                input in;
                 output out;
         }
 
     submodules:
-        arrivalQueue: ArrivalQueue {
+        arrivalQueue: PassengerQueue {
             @display("p=423,382");
         }
+        secondaryQueue: PassengerQueue {
+            @display("p=473.1075,202.935");
+        }
         primaryControll: PrimaryControl {
-            @display("p=423,288");
+            @display("p=425.43,297.0675");
         }
         secondaryControll: SecondaryControl {
-            @display("p=534,183");
+            @display("p=573.3525,112.47");
         }
         plane: Plane {
             @display("p=423,82");
@@ -80,16 +84,18 @@ network checkpoint
         exit: Exit {
             @display("p=710,183");
         }
-        customerGenerator: CustomerGenerator {
+        clientGenerator: ClientGenerator {
             @display("p=637,382");
         }
     connections:
-        arrivalQueue.out --> primaryControll.in;
-        primaryControll.outSecondary --> secondaryControll.in;
+        arrivalQueue.outPassenger --> primaryControll.in;
+        primaryControll.outSecondary --> secondaryQueue.in;
+        secondaryQueue.outPassenger --> secondaryControll.in;
         primaryControll.outPlane --> plane.inPrimary;
-        secondaryControll.out --> plane.inSecondary;
+        secondaryControll.outPlane --> plane.inSecondary;
         secondaryControll.exit --> exit.in;
-        arrivalQueue.out2 --> {delay=0ms;} --> customerGenerator.in;
-        customerGenerator.out -->{delay=500;}--> arrivalQueue.in;
+        clientGenerator.out --> arrivalQueue.in;
+        primaryControll.outSignal --> arrivalQueue.inSignal;
+        secondaryControll.outSignal --> secondaryQueue.inSignal;
 }
 
