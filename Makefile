@@ -1,12 +1,12 @@
 #
-# OMNeT++/OMNEST Makefile for DMaS-master
+# OMNeT++/OMNEST Makefile for Airport
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep
+#  opp_makemake -f --deep -O out -I.
 #
 
 # Name of target to be created (-o option)
-TARGET = DMaS-master$(D)$(EXE_SUFFIX)
+TARGET = Airport$(D)$(EXE_SUFFIX)
 TARGET_DIR = .
 
 # User interface (uncomment one) (-u option)
@@ -16,7 +16,7 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(QTENV_LIBS) $(CMDENV_LI
 #USERIF_LIBS = $(QTENV_LIBS)
 
 # C++ include paths (with -I)
-INCLUDE_PATH =
+INCLUDE_PATH = -I.
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -31,14 +31,18 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc, .msg and .sm files
 OBJS = \
+    $O/ArrivalQueue.o \
     $O/ClientGenerator.o \
     $O/Exit.o \
+    $O/PassengerQueue.o \
     $O/Plane.o \
     $O/PrimaryControl.o \
-    $O/SecondaryControl.o
+    $O/SecondaryControl.o \
+    $O/AirportMessage_m.o
 
 # Message files
-MSGFILES =
+MSGFILES = \
+    AirportMessage.msg
 
 # SM files
 SMFILES =
