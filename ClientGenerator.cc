@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include "AirportMessage_m.h"
 #include "PayloadType.h"
-
 using namespace omnetpp;
 
 class ClientGenerator : public cSimpleModule
@@ -31,7 +30,7 @@ void ClientGenerator::initialize()
 {
     AirportMessage* msg = new AirportMessage("Inital");
     msg->setKind(PayloadType::QUEUE);
-    scheduleAt(0.0,msg);
+    scheduleAt(simTime(),msg);
 }
 
 AirportMessage *ClientGenerator::generateMessage()
@@ -43,7 +42,7 @@ AirportMessage *ClientGenerator::generateMessage()
     passengerCount++;
     AirportMessage *msg = new AirportMessage(msgname);
     msg->setKind(PayloadType::PASSENGER);
-    msg->setDelay(normal(3.0, 1.5));
+    msg->setDelay(abs(normal(4.75, 1.5)));
     msg->addPar("primaryFail");
     msg->addPar("secondaryFail");
     int n = intuniform(0,10);
@@ -68,7 +67,7 @@ void ClientGenerator::handleMessage(cMessage  *msg)
 
     if (passengerCount < 50)
     {
-        scheduleAt(simTime() + normal(1.0, 0.5),qmsg);
+        scheduleAt(simTime() + abs(normal(1.0, 0.5)),qmsg);
 
     EV << "Sending passenger.\n";
 

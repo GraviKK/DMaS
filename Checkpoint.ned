@@ -88,14 +88,14 @@ network checkpoint
             @display("p=637,382");
         }
     connections:
-        arrivalQueue.outPassenger --> primaryControll.in;
-        primaryControll.outSecondary --> secondaryQueue.in;
-        secondaryQueue.outPassenger --> secondaryControll.in;
-        primaryControll.outPlane --> plane.inPrimary;
-        secondaryControll.outPlane --> plane.inSecondary;
-        secondaryControll.exit --> exit.in;
-        clientGenerator.out --> arrivalQueue.in;
-        primaryControll.outSignal --> arrivalQueue.inSignal;
-        secondaryControll.outSignal --> secondaryQueue.inSignal;
+        arrivalQueue.outPassenger --> {  delay = 500ms; } --> primaryControll.in;
+        primaryControll.outSecondary --> {  delay = 500ms; } --> secondaryQueue.in;
+        secondaryQueue.outPassenger --> {  delay = 500ms; } --> secondaryControll.in;
+        primaryControll.outPlane --> {  delay = 500ms; } --> plane.inPrimary;
+        secondaryControll.outPlane --> {  delay = 500ms; } --> plane.inSecondary;
+        secondaryControll.exit --> {  delay = 500ms; } --> exit.in;
+        clientGenerator.out --> {  delay = 500ms; } --> arrivalQueue.in;
+        primaryControll.outSignal --> {  delay = 500ms; } --> arrivalQueue.inSignal;
+        secondaryControll.outSignal --> {  delay = 500ms; } --> secondaryQueue.inSignal;
 }
 

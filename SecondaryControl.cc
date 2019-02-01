@@ -38,7 +38,7 @@ void SecondaryControl::handleMessage(cMessage *msg)
         if (rmsg->par("secondaryFail"))
         {
             EV << "Passenger send to Exit.\n";
-            send(rmsg,"outExit");
+            send(rmsg,"exit");
         }
         else
         {

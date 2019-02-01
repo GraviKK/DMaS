@@ -52,6 +52,7 @@ void PrimaryControl::handleMessage(cMessage *msg)
     }
     else
     {
+        EV << "Passenger resend.\n";
         scheduleAt(simTime() + rmsg->getDelay(), rmsg);
         controlDone = true;
     }
